@@ -31,54 +31,70 @@ export default class App extends Component {
     } else if (!country && city) {
       query = `${city}`
     } else {
-      console.error('Empty query');
       return false;
-    }
+    };
 
     return query;
   }
 
-
   getWeather = async (e) => {
       e.preventDefault();
-
       const query = this.buildQuery(e);
 
       console.log(query)
 
       if (!query) {
-        return this.setState({
-          error: 'No city or country provided'
+        this.setState({
+          countryName: undefined,
+          cityName: undefined,
+          temperature: undefined,
+          description: undefined,
+          error: 'Please enter the fields.'
         })
-      }
+      } else {
+          const apiCall = await fetch(`${API_BASEURL}&q=${query}`);
+          const data = await apiCall.json();
+          console.log(data)
 
-      const apiCall = await fetch(`${API_BASEURL}&q=${query}`);
-      const data = await apiCall.json();
-
-      console.log(data)
-
-      this.setState({
-        countryName: data.sys.country,
-        cityName: data.name,
-        description: data.weather[0].description,
-        temperature: data.main.temp
-      })
-      console.log(data)
+          this.setState({
+            countryName: data.sys.country,
+            cityName: data.name,
+            description: data.weather[0].description,
+            temperature: data.main.temp
+          });
+      };
   }
 
   render() {
       return (
             <div className="App">
-                <Titles />
-                <Form getWeather={this.getWeather} />
-                <Weather 
-                  temperature={this.state.temperature} 
-                  city={this.state.cityName}
-                  country={this.state.countryName}
-                  description={this.state.description}
-                />
+               <div className="wrapper">
+                 <div className="main">
+                   <div>
+                     <div className="row">
+                      <div className="col-5 title-container">
+                        <Titles />
+                      </div>
+                      <div className="col-7 form-container">
+                        <Form getWeather={this.getWeather} />
+                        <Weather 
+                          temperature={this.state.temperature} 
+                          city={this.state.cityName}
+                          country={this.state.countryName}
+                          description={this.state.description}
+                          error={this.state.error}
+                        />
+                      </div>
+                     </div>
+                   </div>
+                 </div>
+               </div>
             </div>
         );
     }
 }
+
+
+
+
 
