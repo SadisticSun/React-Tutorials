@@ -60,7 +60,8 @@ export default class App extends Component {
             countryName: data.sys.country,
             cityName: data.name,
             description: data.weather[0].description,
-            temperature: data.main.temp
+            temperature: data.main.temp,
+            error: undefined
           });
       };
   }
