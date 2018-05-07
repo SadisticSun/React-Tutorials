@@ -40,9 +40,7 @@ export default class App extends Component {
   getWeather = async (e) => {
       e.preventDefault();
       const query = this.buildQuery(e);
-
-      console.log(query)
-
+      
       if (!query) {
         this.setState({
           countryName: undefined,
