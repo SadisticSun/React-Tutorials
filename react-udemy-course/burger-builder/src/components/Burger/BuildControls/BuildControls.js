@@ -12,6 +12,7 @@ const controls = [
 export const BuildControls = props => {
    return (
         <div className={classes.BuildControls}>
+            <h3>Current Price: <strong>€{props.price.toFixed(2)}</strong></h3>
             { controls.map(ctrl => {
                 return <BuildControl 
                     key={ctrl.label} 
