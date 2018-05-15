@@ -1,0 +1,15 @@
+.NavList {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+}
+
+@media (min-width: 500px) {
+    .NavList {
+        flex-flow: row;
+        align-items: center;
+    }
+}
