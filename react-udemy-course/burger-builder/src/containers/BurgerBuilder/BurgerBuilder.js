@@ -81,6 +81,10 @@ export default class BurgerBuilder extends Component {
         })
     }
 
+    continuePurchase = () => {
+        alert('Continue')
+    }
+
     render() {
         const disableInfo = {
             ...this.state.ingredients
@@ -93,7 +97,11 @@ export default class BurgerBuilder extends Component {
         return (
             <Aux>
                 <Modal show={this.state.purchasing} modalClosed={this.closeModal}>
-                    <OrderSummary ingredients={this.state.ingredients} />
+                    <OrderSummary 
+                        ingredients={this.state.ingredients}
+                        purchaseCancelled={this.closeModal}
+                        purchaseContinued={this.continuePurchase}
+                        totalPrice={this.state.totalPrice} />
                 </Modal>
                 <Burger ingredients={this.state.ingredients} />
                 <BuildControls 
